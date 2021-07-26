@@ -28,15 +28,16 @@ if(buttn != undefined){
             buttn.click();
         }
     }, 1000);
-} else if(location.hostname == "https://yandex.ru/"){
+} else if(location.hostname == "yandex.ru"){
     let site = getCookie('site');
     let links= document.links;
-    let pgnext = document.getElementsByClassName("link link_theme_none link_target_serp pager__item pager__item_kind_next i-bem");
+    let pgnext = document.getElementsByClassName("link link_theme_none link_target_serp pager__item pager__item_kind_next i-bem")[0];
     let goToTheNextPage = true;
     let currentPage = +document.querySelector("pager__item pager__item_current_yes pager__item_kind_page").innerText;
     for(let i=0; i<links.length; i++){
         let link = links[i];
         if(link.href.indexOf(site) != -1){
+            link.target = "_self";
             setTimeout(function(){
                 link.click();
             },2000);
@@ -49,11 +50,12 @@ if(buttn != undefined){
 }else{
     let links = document.links;
     let index = getIntRandom(0,links.length)
-    setTimeout(()=>{
+    setInterval(()=>{
+        console.log("клик по сайту")
         if (links[index].href.indexOf(location.pathname) != -1 )
             links[index].click();
         else location.href = "https://yandex.ru/";
-    },2000);
+    },3000);
 
     console.log("Мы больше не на яндексе");
 }
